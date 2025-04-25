@@ -1,62 +1,45 @@
-/* Задать цвет всех элементов абзацев зеленым */
 p {
     color: green;
 }
 
-/* Сделать красным абзацы с классом colortext */
 p.colortext {
     color: red;
-}
-
-/* Сделать синим абзац с идентификатором main */
-#main {
-    color: blue;
-}
-
-/* Изменить шрифт заголовка h1, сделать его жирным */
-h1 {
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    text-align: center; /* Центрировать заголовок */
-}
-
-/* Установить цвет фона страницы */
-body {
-    background-color: #f0f1f0; /* Светлый фон */
-}
-
-/* У блока div с атрибутом student равным yes заполнить фон изображением */
-div[student="yes"] {
-    background-image: url('your-image.jpg'); /* Замените 'your-image.jpg' на путь к вашему изображению */
-    background-size: cover; /* Чтобы изображение занимало весь блок */
-    background-position: center;
-}
-
-/* Задать внешний отступ (margin) равный 20px абзацам с классом colortext */
-p.colortext {
     margin: 20px;
 }
 
-/* Задать внутренний левый отступ (padding-left) равный 25px абзацу с идентификатором main */
 #main {
+    color: blue;
     padding-left: 25px;
 }
 
-/* Задать высоту и ширину для всех контейнеров div */
+h1 {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+body {
+    background-color: #f0f1f0;
+}
+
+div[student="yes"] {
+    background-image: url('your-image.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
 div {
     width: 300px;
     height: 300px;
-    border: 1px solid #000; /* Для видимости */
+    border: 1px solid #000;
 }
 
-/* Задать высоту и ширину для контейнера div, который находится внутри другого контейнера div */
 div > div {
     width: 150px;
     height: 150px;
     background-color: lightblue;
 }
 
-/* Изменить цвет всех ссылок и их псевдоклассов */
 a {
     color: blue;
 }
