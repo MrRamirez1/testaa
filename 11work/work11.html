@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Профиль пользователя</title>
+</head>
+<body>
+  <h1 id="profileTitle">Профиль пользователя</h1>
+
+  <div id="card" style="border: 1px solid gray; padding: 20px; width: 250px;">
+    <img id="avatar" src="https://pic.rutubelist.ru/user/2024-11-23/61/c3/61c3f5d19a0bb7f34d43dc474e080987.jpg" alt="Аватар" width="150"><br>
+    <p id="userName">Имя: Амир</p>
+    <p id="userAge">Возраст: 21</p>
+
+    <button onclick="changeName()">Изменить имя</button>
+    <button onclick="increaseAge()">Увеличить возраст</button>
+    <button onclick="changeAvatar()">Сменить фото</button>
+    <button onclick="changeStyle()">Изменить стиль</button>
+    <button onclick="resetProfile()">Сброс</button>
+  </div>
+
+  <br>
+
+  <input type="text" id="customTextInput" placeholder="Введите текст">
+  <button onclick="showInput()">Показать введённый текст</button>
+  <p id="outputText"></p>
+
+  <script>
+    let name = "Амир";
+    let age = 21;
+    let clickCount = 0;
+
+    const avatars = [
+      "https://pic.rutubelist.ru/user/2024-11-23/61/c3/61c3f5d19a0bb7f34d43dc474e080987.jpg",
+      "https://static.wikia.nocookie.net/youtube/images/8/82/ICing.jpg/revision/latest?cb=20220205142756",
+      "https://avatars.mds.yandex.net/get-yapic/37154/3IuAEGdNqm1m7UBXbZ8wPyCblE-1/orig",
+      "https://steamuserimages-a.akamaihd.net/ugc/2913758187697262/EAC3983A5066CE6295FB03D6AC7870A3DBB25ED8/?imw=512&imh=682&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+    ];
+
+    let currentAvatar = 0;
+
+    function changeName() {
+      let newName = prompt("Введите новое имя:");
+      if (newName) {
+        name = newName;
+        document.getElementById("userName").innerText = "Имя: " + name;
+        alert("Имя изменено");
+      }
+    }
+
+    function increaseAge() {
+      age++;
+      document.getElementById("userAge").innerText = "Возраст: " + age;
+      console.log("Возраст увеличен до " + age);
+    }
+
+    function changeAvatar() {
+      currentAvatar = (currentAvatar + 1) % avatars.length;
+      document.getElementById("avatar").setAttribute("src", avatars[currentAvatar]);
+    }
+
+    function changeStyle() {
+      const card = document.getElementById("card");
+      card.style.backgroundColor = "#222";
+      card.style.color = "#fff";
+    }
+
+    function resetProfile() {
+      name = "Иван";
+      age = 25;
+      currentAvatar = 0;
+      document.getElementById("userName").innerText = "Имя: " + name;
+      document.getElementById("userAge").innerText = "Возраст: " + age;
+      document.getElementById("avatar").setAttribute("src", avatars[0]);
+      document.getElementById("card").style = "";
+    }
+
+    function showInput() {
+      const text = document.getElementById("customTextInput").value;
+      document.getElementById("outputText").innerText = text;
+      clickCount++;
+      console.log("Кнопка нажата " + clickCount + " раз(а)");
+    }
+
+    document.getElementById("profileTitle").onclick = () => {
+      const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+      document.getElementById("profileTitle").style.color = randomColor;
+    };
+  </script>
+</body>
+</html>
