@@ -178,7 +178,6 @@ h2 {
     font-weight: bold;
 }
 
-/* Мобильная адаптация */
 @media (max-width: 1024px) {
     .features-grid, .services-grid {
         grid-template-columns: repeat(2, 1fr);
