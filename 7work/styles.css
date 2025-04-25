@@ -1,17 +1,13 @@
-/* Урок 1: Основы работы с цветами и фоном */
-
-/* 1. Цвет фона страницы */
 body {
-    background-color: #f0f8ff; /* Светлый фон */
+    background-color: #f0f8ff;
     font-family: Arial, sans-serif;
     color: #333;
     text-align: center;
     padding: 30px;
 }
 
-/* 2. Линейный и радиальный градиент в одном блоке */
 .block1 {
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Линейный градиент */
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
     padding: 50px;
     margin: 20px 0;
     border-radius: 10px;
@@ -23,9 +19,8 @@ body {
     font-size: 18px;
 }
 
-/* 3. Изображение в качестве фона с настройками */
 .block2 {
-    background-image: url('https://via.placeholder.com/600'); /* Замените на ваше изображение */
+    background-image: url('https://via.placeholder.com/600');
     background-size: cover;
     background-position: center;
     padding: 50px;
@@ -35,9 +30,8 @@ body {
     border-radius: 10px;
 }
 
-/* 4. Прозрачность фона */
 .block3 {
-    background-color: rgba(0, 128, 128, 0.5); /* Используем rgba для прозрачности */
+    background-color: rgba(0, 128, 128, 0.5);
     padding: 50px;
     margin: 20px 0;
     color: white;
@@ -47,46 +41,27 @@ body {
 
 .block3 p {
     font-size: 18px;
+    filter: brightness(1.2) saturate(1.5);
 }
 
-/* 5. Фильтры яркости и насыщенности */
-.block3 p {
-    filter: brightness(1.2) saturate(1.5); /* Применение фильтров */
-}
-
-/* Урок 2: Работа с разными цветовыми моделями и эффектами фона */
-
-/* 1. Использование RGB и RGBA для изменения фона */
 .block4 {
-    background-color: rgb(34, 193, 195); /* Использование RGB */
-    color: rgba(255, 255, 255, 0.8); /* Применение RGBA для текста */
+    background-color: hsl(180, 50%, 50%);
+    color: hsl(0, 100%, 100%);
     padding: 50px;
     margin: 20px 0;
     border-radius: 10px;
     text-align: center;
 }
 
-/* 2. Использование модели HSL для цвета фона и текста */
-.block4 {
-    background-color: hsl(180, 50%, 50%); /* Цвет фона через HSL */
-    color: hsl(0, 100%, 100%); /* Белый цвет текста */
-}
-
-/* 3. Создание фиксированного фона */
 .block5 {
-    background-image: url('https://via.placeholder.com/600'); /* Замените на ваше изображение */
-    background-attachment: fixed; /* Фиксированный фон */
-    background-repeat: no-repeat; /* Запрещаем повторение */
+    background-image: url('https://via.placeholder.com/600');
+    background-attachment: fixed;
+    background-repeat: repeat-x;
     background-position: center;
+    background-color: lightgray;
     padding: 50px;
     margin: 20px 0;
     color: white;
     text-align: center;
     border-radius: 10px;
-}
-
-/* 4. Горизонтальный фон */
-.block5 {
-    background-repeat: repeat-x; /* Горизонтальный фон */
-    background-color: lightgray;
 }
