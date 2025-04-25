@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Практика: Асинхронность</title>
+</head>
+<body>
+  <h1>Практическая работа: Асинхронность</h1>
+
+  <div>
+    <h2>1</h2>
+    <button onclick="runTask1()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>2</h2>
+    <button onclick="runTask2()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>3</h2>
+    <button onclick="runTask4()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>4</h2>
+    <button onclick="runTask5()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>5</h2>
+    <button onclick="runTask6()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>6</h2>
+    <button onclick="runTask7()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>7</h2>
+    <button onclick="runExtra1()">Запустить</button>
+  </div>
+
+  <div>
+    <h2>Доп</h2>
+    <button onclick="runExtra2()">Запустить</button>
+  </div>
+
+  <script>
+    // 1
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function runTask1() {
+      delay(2000).then(() => console.log("1: Прошло 2 секунды"));
+    }
+
+    // 2
+    function getRandomNumberWithError() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const number = Math.floor(Math.random() * 10) + 1;
+          if (number < 5) {
+            reject("Ошибка: число меньше 5");
+          } else {
+            resolve(number);
+          }
+        }, 1000);
+      });
+    }
+
+    function runTask2() {
+      getRandomNumberWithError()
+        .then(num => console.log("2: Число прошло проверку:", num))
+        .catch(error => console.error("2:", error));
+    }
+
+    // 3
+    async function loadData() {
+      const num = await getRandomNumberWithError();
+      console.log("3: Результат loadData():", num);
+    }
+
+    function runTask4() {
+      loadData().catch(e => console.error("3:", e));
+    }
+
+    // 4
+    async function loadDataWithErrorHandling() {
+      try {
+        const num = await getRandomNumberWithError();
+        console.log("4: Число:", num);
+      } catch (error) {
+        console.error("4: Ошибка:", error);
+      }
+    }
+
+    function runTask5() {
+      loadDataWithErrorHandling();
+    }
+
+    // 5
+    async function multiLoad() {
+      try {
+        const n1 = await getRandomNumberWithError();
+        const n2 = await getRandomNumberWithError();
+        const n3 = await getRandomNumberWithError();
+        const sum = n1 + n2 + n3;
+        console.log(`5: Сумма чисел: ${n1} + ${n2} + ${n3} = ${sum}`);
+      } catch (error) {
+        console.error("5: Ошибка:", error);
+      }
+    }
+
+    function runTask6() {
+      multiLoad();
+    }
+
+    // 6
+    function loginUser() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve({ id: 1, name: "User1" });
+        }, 1000);
+      });
+    }
+
+    function fetchProfile(userId) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve({ profileId: Math.floor(Math.random() * 10), userId });
+        }, 1000);
+      });
+    }
+
+    function fetchSettings(profileId) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (profileId < 5) {
+            reject("Ошибка: неверный profileId");
+          } else {
+            resolve({ theme: "dark", language: "ru" });
+          }
+        }, 1000);
+      });
+    }
+
+    async function loadUserData() {
+      try {
+        const user = await loginUser();
+        console.log("6: Пользователь:", user);
+
+        const profile = await fetchProfile(user.id);
+        console.log("6: Профиль:", profile);
+
+        const settings = await fetchSettings(profile.profileId);
+        console.log("6: Настройки:", settings);
+      } catch (error) {
+        console.error("6: Ошибка:", error);
+      }
+    }
+
+    function runTask7() {
+      loadUserData();
+    }
+
+    // 7
+    async function sequentialDelay() {
+      await delay(1000);
+      console.log("7: 1 секунда");
+      await delay(1000);
+      console.log("7: 2 секунды");
+      await delay(1000);
+      console.log("7: 3 секунды");
+    }
+
+    function runExtra1() {
+      sequentialDelay();
+    }
+
+    // Доп
+    async function loadDataWithSimulatedError() {
+      try {
+        throw new Error("Смоделированная ошибка загрузки данных");
+      } catch (error) {
+        console.error("Доп: Обработка ошибки:", error.message);
+      }
+    }
+
+    function runExtra2() {
+      loadDataWithSimulatedError();
+    }
+  </script>
+</body>
+</html>
