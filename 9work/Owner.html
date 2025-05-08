@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Задания 1-4: Асинхронные функции</title>
+</head>
+<body>
+<script>
+// Задание 1: Функция delay
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Тестирование задания 1
+console.log("Задание 1: Начало delay(2000)");
+delay(2000).then(() => console.log("Задание 1: Прошло 2 секунды"));
+
+// Задание 2: Функция getRandomNumber (базовая)
+function getRandomNumber() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const num = Math.floor(Math.random() * 10) + 1;
+            resolve(num);
+        }, 1000);
+    });
+}
+
+// Тестирование задания 2
+getRandomNumber().then(n => console.log(`Задание 2: Случайное число: ${n}`));
+
+// Задание 3: getRandomNumber с reject
+function getRandomNumberWithReject() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const num = Math.floor(Math.random() * 10) + 1;
+            num < 5 ? reject(new Error(`Число ${num} < 5`)) : resolve(num);
+        }, 1000);
+    });
+}
+
+// Тестирование задания 3
+getRandomNumberWithReject()
+    .then(n => console.log(`Задание 3: Успех: ${n}`))
+    .catch(e => console.error(`Задание 3: Ошибка: ${e.message}`));
+
+// Задание 4: loadData с async/await
+async function loadData() {
+    const num = await getRandomNumberWithReject();
+    console.log(`Задание 4: Получено число: ${num}`);
+}
+
+// Тестирование задания 4
+loadData().catch(e => console.error(`Задание 4: Ошибка: ${e.message}`));
+
+console.log("Все задания запущены, смотрите результаты в консоли...");
+</script>
+</body>
+</html>
