@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS-анимация</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            animation: colorChange 6s infinite alternate;
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: red;
+            }
+            25% {
+                background-color: yellow;
+            }
+            50% {
+                background-color: blue;
+            }
+            75% {
+                background-color: green;
+            }
+            100% {
+                background-color: red;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS-анимация</h1>
+    <div class="box"></div>
+
+    <p><strong>Дополнительное задание:</strong> Если добавить animation-fill-mode: forwards, элемент сохранит стили последнего ключевого кадра после завершения анимации (в нашем случае - red на 100%).</p>
+</body>
+</html>

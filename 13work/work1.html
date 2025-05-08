@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный лабиринт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        #maze-container {
+            width: 600px;
+            height: 600px;
+            margin: 20px auto;
+            position: relative;
+            background-color: #f0f0f0;
+            border: 2px solid #333;
+        }
+        
+        #block {
+            width: 50px;
+            height: 50px;
+            background-color: #ff5252;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: background-color 0.3s;
+        }
+        
+        #counter {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .wall {
+            position: absolute;
+            background-color: #333;
+        }
+        
+        /* Создаем стены лабиринта */
+        .wall-1 { top: 100px; left: 0; width: 500px; height: 20px; }
+        .wall-2 { top: 100px; left: 500px; width: 20px; height: 200px; }
+        .wall-3 { top: 300px; left: 100px; width: 500px; height: 20px; }
+        .wall-4 { top: 100px; left: 100px; width: 20px; height: 200px; }
+        .wall-5 { top: 400px; left: 100px; width: 20px; height: 200px; }
+        .wall-6 { top: 400px; left: 100px; width: 400px; height: 20px; }
+    </style>
+</head>
+<body onload="initAnimation()">
+    <h1>Интерактивный лабиринт</h1>
+    <p id="counter">Шагов: 0</p>
+    
+    <div id="maze-container">
+        <div id="block"></div>
+        <div class="wall wall-1"></div>
+        <div class="wall wall-2"></div>
+        <div class="wall wall-3"></div>
+        <div class="wall wall-4"></div>
+        <div class="wall wall-5"></div>
+        <div class="wall wall-6"></div>
+    </div>
+    
+    <button onclick="reset()">Сбросить</button>
+
+    <script>
+        let block;
+        let animationInterval;
+        let stepCounter = 0;
+        let direction = 'right'; // начальное направление
+        let posX = 0, posY = 0;
+        let isPaused = false;
+        const colors = ['#ff5252', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0', '#ff9800'];
+        let colorIndex = 0;
+        
+        function initAnimation() {
+            block = document.getElementById("block");
+            reset();
+            startAnimation();
+            
+            // Добавляем обработчики событий для паузы при наведении
+            block.addEventListener('mouseover', pauseAnimation);
+            block.addEventListener('mouseout', resumeAnimation);
+        }
+        
+        function startAnimation() {
+            animationInterval = setInterval(moveBlock, 50);
+        }
+        
+        function moveBlock() {
+            if (isPaused) return;
+            
+            // Изменяем позицию в зависимости от направления
+            switch(direction) {
+                case 'right':
+                    posX += 2;
+                    if (posX >= 550) {
+                        direction = 'down';
+                        changeColor();
+                    }
+                    break;
+                case 'down':
+                    posY += 2;
+                    if (posY >= 250) {
+                        direction = 'left';
+                        changeColor();
+                    }
+                    break;
+                case 'left':
+                    posX -= 2;
+                    if (posX <= 100) {
+                        direction = 'down2';
+                        changeColor();
+                    }
+                    break;
+                case 'down2':
+                    posY += 2;
+                    if (posY >= 400) {
+                        direction = 'right2';
+                        changeColor();
+                    }
+                    break;
+                case 'right2':
+                    posX += 2;
+                    if (posX >= 400) {
+                        direction = 'up';
+                        changeColor();
+                    }
+                    break;
+                case 'up':
+                    posY -= 2;
+                    if (posY <= 0) {
+                        direction = 'right';
+                        changeColor();
+                        // Сброс позиции для бесконечного цикла
+                        posX = 0;
+                        posY = 0;
+                    }
+                    break;
+            }
+            
+            // Обновляем позицию блока
+            block.style.left = posX + 'px';
+            block.style.top = posY + 'px';
+            
+            // Обновляем счетчик шагов (каждые 10px)
+            if ((posX + posY) % 10 === 0) {
+                stepCounter++;
+                document.getElementById("counter").textContent = "Шагов: " + stepCounter;
+            }
+        }
+        
+        function changeColor() {
+            colorIndex = (colorIndex + 1) % colors.length;
+            block.style.backgroundColor = colors[colorIndex];
+        }
+        
+        function pauseAnimation() {
+            isPaused = true;
+        }
+        
+        function resumeAnimation() {
+            isPaused = false;
+        }
+        
+        function reset() {
+            clearInterval(animationInterval);
+            posX = 0;
+            posY = 0;
+            stepCounter = 0;
+            direction = 'right';
+            colorIndex = 0;
+            block.style.left = '0px';
+            block.style.top = '0px';
+            block.style.backgroundColor = colors[0];
+            document.getElementById("counter").textContent = "Шагов: 0";
+        }
+    </script>
+</body>
+</html>

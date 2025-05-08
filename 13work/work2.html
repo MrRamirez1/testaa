@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript-анимация</title>
+    <style>
+        #container {
+            width: 400px;
+            height: 400px;
+            background-color: lightyellow;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #animate {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript-анимация</h1>
+    
+    <div id="container">
+        <div id="animate"></div>
+    </div>
+    <button onclick="myMove()">Start Animation</button>
+
+    <script>
+        function myMove() {
+            const elem = document.getElementById("animate");
+            let pos = 0;
+            const id = setInterval(frame, 10);
+            
+            function frame() {
+                if (pos >= 350) {
+                    clearInterval(id);
+                } else {
+                    pos++;
+                    elem.style.top = pos + 'px';
+                    elem.style.left = pos + 'px';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
